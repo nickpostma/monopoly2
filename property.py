@@ -47,4 +47,4 @@ class Property():
 if __name__ == '__main__': 
     import os
     os.system('cls') 
-    unittest.main()
+    unittest.main(verbosity = 2)
