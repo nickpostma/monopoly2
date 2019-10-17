@@ -7,7 +7,7 @@ class test(unittest.TestCase):
     def test_player_should_have_id(self):
         self.assertIsNotNone(Player().id)
     def test_player_should_have_money(self):
-        self.assertIsNotNone(Player().money)
+        self.assertIsNotNone(Player().Money)
     
     pass 
     
@@ -15,7 +15,7 @@ class test(unittest.TestCase):
 class Player():
     def __init__(self): 
         self.id = 'Nickypoo'
-        self.money = 300
+        self.Money = 300
     pass
     
 if __name__ == '__main__': 
