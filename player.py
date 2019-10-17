@@ -19,7 +19,7 @@ class test(unittest.TestCase):
     
 class Player():
     def __init__(self, id, money = 0): 
-        self.id = 'Nickypoo'
+        self.id = id
         self.Money = money
     def GiveMoney(self, money):
         self.Money += money
