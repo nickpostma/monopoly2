@@ -24,21 +24,17 @@ class test(unittest.TestCase):
         self.assertEqual(prop.Purchase(p), False)
     pass 
     
-<<<<<<< HEAD
 class Property_interface(): 
     def __init__(self, index): 
-        self.index = index 
-        self.players = [] 
-        
-        
-=======
+        self.Index = index 
+        self.Players = [] 
     
 class Property():
     def __init__(self, id, name, cost = 0): 
-        self.Id = id
+        self.Index = id
         self.Name = name
         self.Cost = cost
-        self.Players = {}
+        self.Players = []
         self.Owner = {}
     def Purchase(self, p):
         if p.Money > self.Cost:
@@ -47,8 +43,7 @@ class Property():
             return True
         return False
     pass
-    
->>>>>>> 62db0010a67b954d7f80031a5819f9daea9f61ff
+
 if __name__ == '__main__': 
     import os
     os.system('cls') 
