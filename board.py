@@ -55,6 +55,11 @@ class test(unittest.TestCase):
         board.assign_property_to_dictionary(property)
 
         board.set_all_players_starting_position(player_set, index)
+        specific_player_id = 1 
+        
+        self.assertEqual(board.find_player_by_id(specific_player_id), player_set[1])
+        
+        
     
     def test_move_specific_player_1_space(self): 
         
