@@ -13,9 +13,9 @@ class test(unittest.TestCase):
     
     
 class Player():
-    def __init__(self): 
+    def __init__(self, id, money = 0): 
         self.id = 'Nickypoo'
-        self.Money = 300
+        self.Money = money
     pass
     
 if __name__ == '__main__': 
