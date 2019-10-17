@@ -1,4 +1,5 @@
 import unittest 
+import player as pl
 
 
 class test(unittest.TestCase):     
@@ -15,7 +16,7 @@ class test(unittest.TestCase):
         
     def test_set_player_position(self): 
         
-        player = Player_test(1) 
+        player = pl.Player(1) 
         property = Property_test(index = 0)
         board = Board() 
         index = 0 
@@ -26,7 +27,7 @@ class test(unittest.TestCase):
         
     def test_set_all_players_starting_position(self): 
         
-        player_set = [Player_test(i) for i in range(5)]
+        player_set = [pl.Player(i) for i in range(5)]
         property = Property_test(index = 0)
         board = Board() 
         index = 0       
@@ -37,7 +38,7 @@ class test(unittest.TestCase):
         self.assertEqual(board.property_dictionary[0].players, player_set)
     
     def test_find_players_at_index(self):
-        player_set = [Player_test(i) for i in range(5)]
+        player_set = [pl.Player(i) for i in range(5)]
         property = Property_test(index = 0)
         board = Board() 
         index = 0       
@@ -48,7 +49,7 @@ class test(unittest.TestCase):
         self.assertEqual(board.get_players_at_index(index), player_set)
     
     def test_get_player_by_id(self): 
-        player_set = [Player_test(i) for i in range(5)]
+        player_set = [pl.Player(i) for i in range(5)]
         property = Property_test(index = 0)
         board = Board() 
         index = 0       
@@ -63,7 +64,7 @@ class test(unittest.TestCase):
     
     def test_remove_player_from_property(self): 
     
-        player_set = [Player_test(i) for i in range(5)]
+        player_set = [pl.Player(i) for i in range(5)]
         property = Property_test(index = 0)
         board = Board() 
         index = 0       
@@ -83,7 +84,7 @@ class test(unittest.TestCase):
     
     def test_move_specific_player_1_space(self): 
         
-        player_set = [Player_test(i) for i in range(5)]
+        player_set = [pl.Player(i) for i in range(5)]
         
         property = Property_test(index = 0)
         destination_property = Property_test(index = 1)
@@ -99,17 +100,22 @@ class test(unittest.TestCase):
         
         board.set_all_players_starting_position(player_set, index)
         
-        board.move_player_by_player_id(specific_player_id, move_spaces) 
+        playerobj,indexobj = board.get_player_by_id(specific_player_id)
+        originalMoney = playerobj.Money
+        
+        revisedPlayer = board.move_player_by_player_id(specific_player_id, move_spaces) 
         
         self.assertEqual(len([player for player in board.property_dictionary[index].players 
                         if player.id == specific_player_id]), 0)
         
+        
         self.assertEqual(board.get_player_by_id(specific_player_id)
                             , (player_set[2], destination_property.index))
+        self.assertTrue(revisedPlayer.Money == originalMoney)
         
     def test_move_specific_player_past_index_39(self): 
         
-        player_set = [Player_test(i) for i in range(5)]
+        player_set = [pl.Player(i) for i in range(5)]
         
         property = Property_test(index = 0)
         destination_property = Property_test(index = 1)
@@ -125,13 +131,18 @@ class test(unittest.TestCase):
         
         board.set_all_players_starting_position(player_set, index)
         
-        board.move_player_by_player_id(specific_player_id, move_spaces) 
+        playerobj,indexobj = board.get_player_by_id(specific_player_id)
+        originalMoney = playerobj.Money
+        
+        revisedPlayer = board.move_player_by_player_id(specific_player_id, move_spaces) 
         
         self.assertEqual(len([player for player in board.property_dictionary[index].players 
                         if player.id == specific_player_id]), 0)
         
         self.assertEqual(board.get_player_by_id(specific_player_id)
                             , (player_set[2], destination_property.index))
+        
+        self.assertTrue(revisedPlayer.Money > originalMoney)
     pass 
     
     
@@ -139,10 +150,6 @@ class Property_test():
     def __init__(self, index): 
         self.index = index 
         self.players = [] 
-        
-class Player_test(): 
-    def __init__(self, id): 
-        self.id = id 
         
         
     
@@ -193,10 +200,10 @@ class Board():
         new_index = player_index + move_amount
         if new_index >= 40:
             new_index -= 40 
-            
+            player.GiveMoney(200)
         self.set_player_position(player, new_index)
     
-        return 
+        return player
     
     pass 
     
